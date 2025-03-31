@@ -1,2 +1,1 @@
-# minimal-linux-usb
-minimal linux usb
+minimal-linux-usb is a simple recipe to create a bootable usb that contains the minimal-linux-new system.  its intended purpose is to better understand the boot process and create a rescue disc.  once complete, you should be able to boot minimal-linux-new from a usb drive.  it's very easy and fun just follow the steps.
