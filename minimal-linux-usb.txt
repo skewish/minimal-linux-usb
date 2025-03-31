@@ -1,0 +1,117 @@
+minimal-linux-usb
+
+1. parent system pre-build setup (fyi)
+
+64-bit debian linux on /dev/sda1 (newest release)
+bios boot order: usb then disk
+a usb drive (ex. an old 10G thumb drive)
+previously built minimal-linux-new (ex. on /dev/sda7)
+
+2. boot the parent system (debian) without the usb drive inserted
+
+3. within the parent system open a terminal & become superuser
+
+~# su -
+
+4. install the following packages on the parent system
+
+~# apt install syslinux syslinux-common mtools extlinux (if not already present)
+
+5. insert a usb drive and identify it
+
+~# lsblk (ex. /dev/sdc
+		  |--> /dev/sdc1)
+		
+6. umount & shred everything on the target usb
+
+~# umount /dev/sdc1
+~# shred -v -n 1 /dev/sdc
+
+7. create a single partition on /dev/sdc using fdisk
+
+~# fdisk /dev/sdc (use mostly the default selections)
+ Command >n
+ Partition type >p
+ Partition number >1
+ First sector 2048 (this is default)
+ Last sector (select the default)
+ Command >a
+ Select partition >1
+ Command >w
+
+8. install mbr.bin from extlinux
+
+~# cat /usr/lib/EXTLINUX/mbr.bin >/dev/sdc
+
+9. create & mount a filesystem on the build partition
+
+~# mkdir /mnt/usb
+~# mkfs.ext4 /dev/sdc1
+~# mount -t ext4 /dev/sdc1 /mnt/usb
+
+10. identify the PARTUUID of the new partition (the UUID can also be used)
+
+~# blkid
+
+(ex. PARTUUID=5b16ac6f-01)
+
+11. Copy all of mimimal-linux-new from /mnt/sda7 preserving the links
+
+~# mount -t ext4 /dev/sda7 /mnt/sda7
+~# cp -p -r /mnt/sda7/* /mnt/usb
+
+12. install extlinux on the partition
+
+~# mkdir /mnt/usb/boot/syslinux
+~# extlinux -i /mnt/usb/boot/syslinux
+
+13. create syslinux.cfg
+
+~# cat > /mnt/usb/boot/syslinux/syslinux.cfg << 'done'
+DEFAULT linux
+LABEL linux
+ KERNEL /vmlinuz
+ APPEND initrd=/initramfs root=PARTUUID=5b16ac6f-01
+done
+
+14. create an initramfs
+
+~# cd /mnt/usb
+~# mkinitramfs -o /mnt/usb/boot/initramfs-$(uname)
+~# ln -f -s ./boot/initramfs* initramfs
+
+15. create a swapfile
+
+~# fallocate -l 1G /mnt/usb/var/tmp/swapfile
+~# chmod 600 /mnt/usb/var/tmp/swapfile
+~# mkswap /mnt/usb/var/tmp/swapfile
+
+16. modify /mnt/usb/etc/fstab
+
+~# cat > /mnt/usb/etc/fstab << 'done'
+proc /proc proc defaults 0 0
+sysfs /sys sysfs defaults 0 0
+PARTUUID="5b16ac6f-01"/ ext4 defaults 0 1
+/var/tmp/swapfile none swap sw 0 0
+done
+
+17. modify /mnt/usb/etc/os-release
+
+~# cat > /mnt/usb/etc/os-release << 'done'
+NAME="minimal-linux-usb"
+VERSION="v1"
+HOME_URL="https://github.com/skewish"
+done
+
+18. modify /mnt/usb/etc/init.d/rcS
+
+~# cat > /mnt/usb/etc/init.d/rcS << 'done'
+#!/bin/sh
+mount -o remount,rw PARTUUID="5b16ac6f-01" /
+rm -f -r /tmp;mkdir -m 1777 /tmp
+rm /.ash_history
+mount -a
+swapon -a
+done
+
+19. reboot with usb inserted (it should start)
