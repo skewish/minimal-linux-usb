@@ -82,6 +82,7 @@ done
 
 15. create a swapfile
 
+~# mkdir /mnt/usb/var/tmp
 ~# fallocate -l 1G /mnt/usb/var/tmp/swapfile
 ~# chmod 600 /mnt/usb/var/tmp/swapfile
 ~# mkswap /mnt/usb/var/tmp/swapfile
@@ -91,7 +92,7 @@ done
 ~# cat > /mnt/usb/etc/fstab << 'done'
 proc /proc proc defaults 0 0
 sysfs /sys sysfs defaults 0 0
-PARTUUID="5b16ac6f-01"/ ext4 defaults 0 1
+PARTUUID=5b16ac6f-01 / ext4 defaults 0 1
 /var/tmp/swapfile none swap sw 0 0
 done
 
@@ -107,7 +108,7 @@ done
 
 ~# cat > /mnt/usb/etc/init.d/rcS << 'done'
 #!/bin/sh
-mount -o remount,rw PARTUUID="5b16ac6f-01" /
+mount -o remount,rw PARTUUID=5b16ac6f-01 /
 rm -f -r /tmp;mkdir -m 1777 /tmp
 rm /.ash_history
 mount -a
