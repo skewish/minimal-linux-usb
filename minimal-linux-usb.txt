@@ -17,17 +17,17 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 
 ~# apt install syslinux syslinux-common mtools extlinux (if not already present)
 
-5. insert a usb drive and identify it
+5. insert a usb drive and identify it (rec. be sure it's correct)
 
-~# lsblk (ex. /dev/sdc
-		  |--> /dev/sdc1)
+~# lsblk (ex. sdc
+		|__sdc1)
 		
-6. umount & shred everything on the target usb
+6. unmount & shred everything on the target usb
 
 ~# umount /dev/sdc1
 ~# shred -v -n 1 /dev/sdc
 
-7. create a single partition on /dev/sdc using fdisk
+7. create a new, single partition on /dev/sdc using fdisk
 
 ~# fdisk /dev/sdc (use mostly the default selections)
  Command >n
