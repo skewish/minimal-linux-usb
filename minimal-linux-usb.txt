@@ -7,9 +7,9 @@ bios boot order: usb then disk
 a usb drive (ex. an old 10G thumb drive)
 previously built minimal-linux-new (ex. on /dev/sda7)
 
-2. boot the parent system (debian) without the usb drive inserted
+2. boot the parent system without the usb drive inserted
 
-3. within the parent system open a terminal & become superuser
+3. within the parent system (debian) open a terminal & become superuser
 
 ~# su -
 
