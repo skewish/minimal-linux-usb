@@ -115,4 +115,4 @@ mount -a
 swapon -a
 done
 
-19. reboot with usb inserted (it should start)
+19. reboot with the usb drive inserted (it should start)
