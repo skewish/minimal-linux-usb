@@ -4,7 +4,7 @@ minimal-linux-usb
 
 64-bit debian linux on /dev/sda1 (newest release)
 bios boot order: usb then disk
-a usb drive (ex. an old 10G thumb drive)
+a usb drive (ex. an old 2G thumb drive on /dev/sdc)
 previously built minimal-linux-new (ex. on /dev/sda7)
 
 2. boot the parent system without the usb drive inserted
@@ -39,15 +39,15 @@ previously built minimal-linux-new (ex. on /dev/sda7)
  Select partition >1
  Command >w
 
-8. install mbr.bin from extlinux
+8. add mbr.bin from extlinux to the usb
 
 ~# cat /usr/lib/EXTLINUX/mbr.bin >/dev/sdc
 
 9. create & mount a filesystem on the build partition
 
-~# mkdir /mnt/usb
+~# mkdir /mnt/scd1
 ~# mkfs.ext4 /dev/sdc1
-~# mount -t ext4 /dev/sdc1 /mnt/usb
+~# mount -t ext4 /dev/sdc1 /mnt/sdc1
 
 10. identify the PARTUUID of the new partition (the UUID can also be used)
 
@@ -74,11 +74,11 @@ LABEL linux
  APPEND initrd=/initramfs root=PARTUUID=5b16ac6f-01
 done
 
-14. create an initramfs
+14. create an initramfs (this comes from the parent kernel)
 
 ~# cd /mnt/usb
 ~# mkinitramfs -o /mnt/usb/boot/initramfs-$(uname)
-~# ln -f -s ./boot/initramfs* initramfs
+~# ln -f -s boot/initramfs* initramfs
 
 15. create a swapfile
 
