@@ -4,7 +4,7 @@ minimal-linux-usb
 
 64-bit debian linux on /dev/sda1 (newest release)
 bios boot order: usb then disk
-a usb drive (ex. an old 2G thumb drive on /dev/sdc)
+a usb drive (ex. an old 10G thumb drive on /dev/sdc)
 previously built minimal-linux-new (ex. on /dev/sda7)
 
 2. boot the parent system without the usb drive inserted
@@ -55,19 +55,19 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 
 (ex. PARTUUID=5b16ac6f-01)
 
-11. Copy all of mimimal-linux-new from /mnt/sda7 preserving the links
+11. Copy all of mimimal-linux-new from /mnt/sda7 to /mnt/sdc1 preserving the links
 
 ~# mount -t ext4 /dev/sda7 /mnt/sda7
-~# cp -p -r /mnt/sda7/* /mnt/usb
+~# cp -p -r /mnt/sda7/* /mnt/sdc1
 
 12. install extlinux on the partition
 
-~# mkdir /mnt/usb/boot/syslinux
-~# extlinux -i /mnt/usb/boot/syslinux
+~# mkdir /mnt/sdc1/boot/syslinux
+~# extlinux -i /mnt/sdc1/boot/syslinux
 
 13. create syslinux.cfg
 
-~# cat > /mnt/usb/boot/syslinux/syslinux.cfg << 'done'
+~# cat > /mnt/sdc1/boot/syslinux/syslinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
@@ -76,37 +76,37 @@ done
 
 14. create an initramfs (this comes from the parent kernel)
 
-~# cd /mnt/usb
-~# mkinitramfs -o /mnt/usb/boot/initramfs-$(uname)
-~# ln -f -s boot/initramfs* initramfs
+~# cd /mnt/sdc1
+~# mkinitramfs -o /mnt/sdc1/boot/initramfs-$(uname)
+~# ln -f -s ./boot/initramfs* initramfs
 
 15. create a swapfile
 
-~# mkdir /mnt/usb/var/tmp
-~# fallocate -l 1G /mnt/usb/var/tmp/swapfile
-~# chmod 600 /mnt/usb/var/tmp/swapfile
-~# mkswap /mnt/usb/var/tmp/swapfile
+~# mkdir /mnt/sdc1/var/tmp
+~# fallocate -l 1G /mnt/sdc1/var/tmp/swapfile
+~# chmod 600 /mnt/sdc1/var/tmp/swapfile
+~# mkswap /mnt/sdc1/var/tmp/swapfile
 
-16. modify /mnt/usb/etc/fstab
+16. modify /mnt/sdc1/etc/fstab
 
-~# cat > /mnt/usb/etc/fstab << 'done'
+~# cat > /mnt/sdc1/etc/fstab << 'done'
 proc /proc proc defaults 0 0
 sysfs /sys sysfs defaults 0 0
 PARTUUID=5b16ac6f-01 / ext4 defaults 0 1
 /var/tmp/swapfile none swap sw 0 0
 done
 
-17. modify /mnt/usb/etc/os-release
+17. modify /mnt/sdc1/etc/os-release
 
-~# cat > /mnt/usb/etc/os-release << 'done'
+~# cat > /mnt/sdc1/etc/os-release << 'done'
 NAME="minimal-linux-usb"
 VERSION="v1"
 HOME_URL="https://github.com/skewish"
 done
 
-18. modify /mnt/usb/etc/init.d/rcS
+18. modify /mnt/sdc1/etc/init.d/rcS
 
-~# cat > /mnt/usb/etc/init.d/rcS << 'done'
+~# cat > /mnt/sdc1/etc/init.d/rcS << 'done'
 #!/bin/sh
 mount -o remount,rw PARTUUID=5b16ac6f-01 /
 rm -f -r /tmp;mkdir -m 1777 /tmp
