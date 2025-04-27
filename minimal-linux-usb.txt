@@ -4,7 +4,7 @@ minimal-linux-usb
 
 64-bit debian linux on /dev/sda1 (newest release)
 bios boot order: usb then disk
-a usb drive (ex. an old 10G thumb drive on /dev/sdc)
+a usb drive (ex. an 8G thumb drive on /dev/sdc)
 previously built minimal-linux-new (ex. on /dev/sda7)
 
 2. boot the parent system without the usb drive inserted
@@ -13,11 +13,11 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 
 ~# su -
 
-4. install the following packages on the parent system
+4. install the following packages on the parent system (if not already present)
 
-~# apt install syslinux syslinux-common mtools extlinux (if not already present)
+~# apt install mtools extlinux syslinux syslinux-common
 
-5. insert a usb drive and identify it (rec. be sure it's correct)
+5. insert a usb drive and identify it (rec. be certain you are correct)
 
 ~# lsblk (ex. sdc
 		|__sdc1)
