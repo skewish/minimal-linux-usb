@@ -60,25 +60,25 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 ~# mount -t ext4 /dev/sda7 /mnt/sda7
 ~# cp -p -r /mnt/sda7/* /mnt/sdb1
 
-12. install extlinux on the partition
+12. install extlinux on /dev/sdb1
 
 ~# mkdir /mnt/sdb1/boot/syslinux
 ~# extlinux -i /mnt/sdb1/boot/syslinux
 
-13. create syslinux.cfg
+13. create initramfs (this comes from the parent kernel)
+
+~# cd /mnt/sdb1
+~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
+~# ln -f -s ./boot/initramfs* initramfs
+
+14. create syslinux.cfg
 
 ~# cat > /mnt/sdb1/boot/syslinux/syslinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
- APPEND initrd=/boot/initramfs* root=PARTUUID=########-##
+ APPEND initrd=initramfs root=PARTUUID=########-##
 done
-
-14. create initramfs (this comes from the parent kernel)
-
-~# cd /mnt/sdb1
-~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
-~# ln -f -s ./boot/initramfs* initramfs
 
 15. create a swapfile
 
