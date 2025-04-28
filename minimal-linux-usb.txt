@@ -53,7 +53,7 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 
 ~# blkid
 
-(ex. PARTUUID=########-##)
+(ex. /dev/sdb1: PARTUUID="########-##")
 
 11. Copy all of mimimal-linux-new from /mnt/sda7 to /mnt/sdb1 preserving the links
 
@@ -65,7 +65,7 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 ~# mkdir /mnt/sdb1/boot/syslinux
 ~# extlinux -i /mnt/sdb1/boot/syslinux
 
-13. create initramfs (this comes from the parent kernel)
+13. create initramfs (this is from the parent kernel)
 
 ~# cd /mnt/sdb1
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
@@ -77,7 +77,7 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
- APPEND initrd=initramfs root=PARTUUID=########-##
+ APPEND initrd=/initramfs root=PARTUUID=########-##
 done
 
 15. create a swapfile
