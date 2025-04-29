@@ -69,7 +69,7 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 
 ~# cd /mnt/sdb1
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
-~# ln -f -s ./boot/initramfs* initramfs
+~# ln -f -s boot/initramfs* initramfs
 
 14. create syslinux.cfg (use your PARTUUID)
 
