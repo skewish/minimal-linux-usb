@@ -6,6 +6,7 @@ minimal-linux-usb
 bios boot order: usb then hard drive
 a usb drive (ex. an 8G thumb drive on /dev/sdb)
 previously built minimal-linux-new (ex. on /dev/sda7)
+internet connection
 
 2. boot the parent system without the usb drive inserted
 
@@ -13,9 +14,9 @@ previously built minimal-linux-new (ex. on /dev/sda7)
 
 ~# su -
 
-4. install the following packages on the parent system
+4. install the following packages on the parent system (if not already present)
 
-~# apt install extlinux mtools syslinux syslinux-common (if not already present)
+~# apt install extlinux mtools syslinux syslinux-common
 
 5. insert a usb drive and identify it (rec. be certain it's correct)
 
