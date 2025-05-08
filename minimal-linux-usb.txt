@@ -4,7 +4,7 @@ minimal-linux-usb
 
 64-bit debian linux on /dev/sda1 (newest release)
 bios boot order: usb then hard drive
-a usb drive (ex. an 8G thumb drive on /dev/sdb)
+a usb drive (ex. an 8 GB thumb drive on /dev/sdb)
 previously built minimal-linux-new (ex. on /dev/sda7)
 internet connection
 
