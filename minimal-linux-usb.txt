@@ -23,7 +23,7 @@ internet connection
 ~# lsblk 
 	(ex. sdb
 	     |__sdb1)
-		
+
 6. unmount everything on the target usb & shred it (ex. /dev/sdb)
 
 ~# umount /dev/sdb1
@@ -43,7 +43,7 @@ internet connection
 
 8. add mbr.bin from extlinux to /dev/sdb
 
-~# cat /usr/lib/EXTLINUX/mbr.bin >/dev/sdb
+~# cat /usr/lib/EXTLINUX/mbr.bin > /dev/sdb
 
 9. create & mount a filesystem on the usb build partition
 
