@@ -22,7 +22,7 @@ internet connection
 
 ~# lsblk 
 	(ex. sdb
-		|__sdb1)
+	     |__sdb1)
 		
 6. unmount everything on the target usb & shred it (ex. /dev/sdb)
 
