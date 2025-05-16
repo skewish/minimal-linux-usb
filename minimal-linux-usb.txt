@@ -56,7 +56,7 @@ internet connection
 ~# blkid (exanple output shown)
 
 	ex. /dev/sdb1: UUID="########-####-####-####-############" 
-	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-12"
+	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-56"
 
 11. copy all of mimimal-linux-new from /mnt/sda7 to /mnt/sdb1
 
@@ -68,54 +68,54 @@ internet connection
 ~# mkdir /mnt/sdb1/boot/syslinux
 ~# extlinux -i /mnt/sdb1/boot/syslinux
 
-13. create syslinux.cfg (using your PARTUUID)
-
-~# cat > /mnt/sdb1/boot/syslinux/syslinux.cfg << 'done'
-DEFAULT linux
-LABEL linux
- KERNEL /vmlinuz
- APPEND initrd=/initramfs root=PARTUUID=1234abcd-12
-done
-
-14. create initramfs (this is from the parent kernel)
+13. create initramfs (this is from the parent kernel)
 
 ~# cd /mnt/sdb1
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-15. create a swapfile
+14. create syslinux.cfg (using your PARTUUID)
+
+~# cat > /mnt/sdb1/boot/syslinux/syslinux.cfg << 'done'
+DEFAULT linux
+LABEL linux
+ KERNEL /vmlinuz
+ APPEND initrd=/initramfs root=PARTUUID=1234abcd-56
+done
+
+15. modify /mnt/sdb1/etc/fstab (using your PARTUUID)
+
+~# cat > /mnt/sdb1/etc/fstab << 'done'
+proc /proc proc defaults 0 0
+sysfs /sys sysfs defaults 0 0
+PARTUUID=1234abcd-56 / ext4 defaults 0 1
+/var/tmp/swapfile none swap sw 0 0
+done
+
+16. modify /mnt/sdb1/etc/init.d/rcS (using your PARTUUID)
+
+~# cat > /mnt/sdb1/etc/init.d/rcS << 'done'
+#!/bin/sh
+mount -o remount,rw PARTUUID=1234abcd-56 /
+rm -f -r /tmp;mkdir -m 1777 /tmp
+rm /.ash_history
+mount -a
+swapon -a
+done
+
+17. create a swapfile
 
 ~# mkdir /mnt/sdb1/var/tmp
 ~# fallocate -l 1G /mnt/sdb1/var/tmp/swapfile
 ~# chmod 600 /mnt/sdb1/var/tmp/swapfile
 ~# mkswap /mnt/sdb1/var/tmp/swapfile
 
-16. modify /mnt/sdb1/etc/fstab (using your PARTUUID)
-
-~# cat > /mnt/sdb1/etc/fstab << 'done'
-proc /proc proc defaults 0 0
-sysfs /sys sysfs defaults 0 0
-PARTUUID=1234abcd-12 / ext4 defaults 0 1
-/var/tmp/swapfile none swap sw 0 0
-done
-
-17. modify /mnt/sdb1/etc/os-release
+18. modify /mnt/sdb1/etc/os-release
 
 ~# cat > /mnt/sdb1/etc/os-release << 'done'
 NAME="minimal-linux-usb"
 VERSION="v1"
 HOME_URL="https://github.com/skewish"
-done
-
-18. modify /mnt/sdb1/etc/init.d/rcS (using your PARTUUID)
-
-~# cat > /mnt/sdb1/etc/init.d/rcS << 'done'
-#!/bin/sh
-mount -o remount,rw PARTUUID=1234abcd-12 /
-rm -f -r /tmp;mkdir -m 1777 /tmp
-rm /.ash_history
-mount -a
-swapon -a
 done
 
 19. reboot with the usb drive inserted (it should start)
