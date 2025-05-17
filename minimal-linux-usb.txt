@@ -18,7 +18,7 @@ internet connection
 
 ~# apt install extlinux mtools syslinux syslinux-common
 
-5. insert a usb drive and identify it (rec. be certain it's correct)
+5. insert a usb drive & identify it (rec. be certain it's correct)
 
 ~# lsblk 
 	(ex. sdb
@@ -33,13 +33,13 @@ internet connection
 
 ~# fdisk /dev/sdb (rec. use mostly the default selections)
  
- 	Command (m for help): n
+ 	Comm& (m for help): n
  	Partition type (default p): p
  	Partition number (default 1): 1
  	First sector (default 2048): Enter
  	Last sector (default 16779263): Enter
- 	Command (m for help): a
- 	Command (m for help): w
+ 	Comm& (m for help): a
+ 	Comm& (m for help): w
 
 8. add mbr.bin from extlinux to /dev/sdb
 
@@ -74,7 +74,14 @@ internet connection
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-14. create syslinux.cfg (use your PARTUUID)
+14. create a swapfile
+
+~# mkdir /mnt/sdb1/var/tmp
+~# fallocate -l 1G /mnt/sdb1/var/tmp/swapfile
+~# chmod 600 /mnt/sdb1/var/tmp/swapfile
+~# mkswap /mnt/sdb1/var/tmp/swapfile
+
+15. create syslinux.cfg (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/boot/syslinux/syslinux.cfg << 'done'
 DEFAULT linux
@@ -102,13 +109,6 @@ rm /.ash_history
 mount -a
 swapon -a
 done
-
-17. create a swapfile
-
-~# mkdir /mnt/sdb1/var/tmp
-~# fallocate -l 1G /mnt/sdb1/var/tmp/swapfile
-~# chmod 600 /mnt/sdb1/var/tmp/swapfile
-~# mkswap /mnt/sdb1/var/tmp/swapfile
 
 18. modify /mnt/sdb1/etc/os-release
 
