@@ -74,7 +74,7 @@ internet connection
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-14. create syslinux.cfg (using your PARTUUID)
+14. create syslinux.cfg (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/boot/syslinux/syslinux.cfg << 'done'
 DEFAULT linux
@@ -83,7 +83,7 @@ LABEL linux
  APPEND initrd=/initramfs root=PARTUUID=1234abcd-56
 done
 
-15. modify /mnt/sdb1/etc/fstab (using your PARTUUID)
+15. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/etc/fstab << 'done'
 proc /proc proc defaults 0 0
@@ -92,7 +92,7 @@ PARTUUID=1234abcd-56 / ext4 defaults 0 1
 /var/tmp/swapfile none swap sw 0 0
 done
 
-16. modify /mnt/sdb1/etc/init.d/rcS (using your PARTUUID)
+16. modify /mnt/sdb1/etc/init.d/rcS (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/etc/init.d/rcS << 'done'
 #!/bin/sh
