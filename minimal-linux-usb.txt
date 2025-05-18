@@ -33,13 +33,13 @@ internet connection
 
 ~# fdisk /dev/sdb (rec. use mostly the default selections)
  
- 	Comm& (m for help): n
+ 	Command (m for help): n
  	Partition type (default p): p
  	Partition number (default 1): 1
  	First sector (default 2048): Enter
  	Last sector (default 16779263): Enter
- 	Comm& (m for help): a
- 	Comm& (m for help): w
+ 	Command (m for help): a
+ 	Command (m for help): w
 
 8. add mbr.bin from extlinux to /dev/sdb
 
@@ -68,7 +68,7 @@ internet connection
 ~# mkdir /mnt/sdb1/boot/syslinux
 ~# extlinux -i /mnt/sdb1/boot/syslinux
 
-13. create initramfs (this is from the parent kernel)
+13. create initramfs (from the parent kernel)
 
 ~# cd /mnt/sdb1
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
