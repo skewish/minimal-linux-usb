@@ -53,9 +53,9 @@ internet connection
 
 10. identify the PARTUUID of the new partition (the UUID can also be used)
 
-~# blkid (example output shown)
+~# blkid (sample output information shown)
 
-	ex. /dev/sdb1: UUID="########-####-####-####-############" 
+	/dev/sdb1: UUID="########-####-####-####-############" 
 	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-01"
 
 11. copy all of mimimal-linux-new from /mnt/sda7 to /mnt/sdb1
