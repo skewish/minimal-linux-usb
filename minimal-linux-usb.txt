@@ -24,7 +24,7 @@ internet connection
 	(ex. sdb
 	     |__sdb1)
 
-6. unmount everything on the target usb & shred it (ex. /dev/sdb)
+6. unmount everything on the target usb & shred it
 
 ~# umount /dev/sdb1
 ~# shred -v -n 1 /dev/sdb
@@ -45,7 +45,7 @@ internet connection
 
 ~# cat /usr/lib/EXTLINUX/mbr.bin > /dev/sdb
 
-9. create & mount a filesystem on the usb build partition
+9. create & mount a filesystem on the build partition (/dev/sdb1)
 
 ~# mkdir /mnt/sdb1
 ~# mkfs.ext4 /dev/sdb1
