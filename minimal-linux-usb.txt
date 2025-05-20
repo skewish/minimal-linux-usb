@@ -110,12 +110,4 @@ mount -a
 swapon -a
 done
 
-18. modify /mnt/sdb1/etc/os-release
-
-~# cat > /mnt/sdb1/etc/os-release << 'done'
-NAME="minimal-linux-usb"
-VERSION="v1"
-HOME_URL="https://github.com/skewish"
-done
-
-19. reboot with the usb drive inserted (it should start)
+18. reboot with the usb drive inserted (it should start)
