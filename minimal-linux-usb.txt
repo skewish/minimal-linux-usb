@@ -89,7 +89,7 @@ LABEL linux
  APPEND initrd=/initramfs root=PARTUUID=1234abcd-01
 done
 
-15. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
+16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/etc/fstab << 'done'
 proc /proc proc defaults 0 0
@@ -98,7 +98,7 @@ PARTUUID=1234abcd-01 / ext4 defaults 0 1
 /var/swapfile none swap sw 0 0
 done
 
-16. modify /mnt/sdb1/etc/init.d/rcS (use your PARTUUID)
+17. modify /mnt/sdb1/etc/init.d/rcS (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/etc/init.d/rcS << 'done'
 #!/bin/sh
