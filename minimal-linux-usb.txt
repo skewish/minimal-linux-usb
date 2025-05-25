@@ -8,7 +8,7 @@ a usb drive (ex. an 8G thumb drive for /dev/sdb)
 previously built minimal-linux-new (ex. on /dev/sda7)
 internet connection
 
-2. boot the parent system without the usb drive inserted
+2. start the parent system without the usb drive inserted
 
 3. within the parent system (debian) open a terminal & become superuser
 
@@ -63,10 +63,9 @@ internet connection
 ~# mount -t ext4 /dev/sda7 /mnt/sda7
 ~# cp -p -r /mnt/sda7/* /mnt/sdb1
 
-12. install extlinux on /dev/sdb1
+12. install extlinux on /dev/sdb1 (in /mnt/sdb1/etc)
 
-~# mkdir /mnt/sdb1/boot/syslinux
-~# extlinux -i /mnt/sdb1/boot/syslinux
+~# extlinux -i /mnt/sdb1/etc
 
 13. create initramfs (from the parent kernel)
 
@@ -82,7 +81,7 @@ internet connection
 
 15. create syslinux.cfg (use your PARTUUID)
 
-~# cat > /mnt/sdb1/boot/syslinux/syslinux.cfg << 'done'
+~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
