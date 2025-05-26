@@ -14,7 +14,7 @@ internet connection
 
 ~# su -
 
-4. install syslinux on the parent system (if not already present)
+4. install extlinux on the parent system (if not already present)
 
 ~# apt install extlinux mtools syslinux syslinux-common
 
@@ -65,7 +65,7 @@ internet connection
 
 12. install extlinux on /dev/sdb1 (in /mnt/sdb1/etc)
 
-~# extlinux -i /mnt/sdb1/etc
+~# extlinux -i /mnt/sdb1/etc (it appears as syslinux)
 
 13. create initramfs (from the parent kernel)
 
