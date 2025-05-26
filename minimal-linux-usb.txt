@@ -79,9 +79,9 @@ internet connection
 ~# chmod 600 /mnt/sdb1/var/swapfile
 ~# mkswap /mnt/sdb1/var/swapfile
 
-15. create extlinux.cfg (use your PARTUUID)
+15. create syslinux.cfg (use your PARTUUID)
 
-~# cat > /mnt/sdb1/etc/extlinux.cfg << 'done'
+~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
