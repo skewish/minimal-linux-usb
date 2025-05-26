@@ -1,11 +1,11 @@
 minimal-linux-usb
 
-1. parent system pre-build setup (fyi)
+1. my parent system pre-build setup (fyi)
 
 64-bit debian linux on /dev/sda1 (newest release)
-bios boot order: usb then hard drive
 a usb drive (ex. an 8G thumb drive for /dev/sdb)
-previously built minimal-linux-new (ex. on /dev/sda7)
+bios boot order: usb then hard drive
+previously built minimal-linux-new on /dev/sda7
 internet connection
 
 2. start the parent system without the usb drive inserted
