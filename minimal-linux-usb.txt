@@ -14,7 +14,7 @@ internet connection
 
 ~# su -
 
-4. install the following packages on the parent system (if not already present)
+4. install syslinux on the parent system (if not already present)
 
 ~# apt install extlinux mtools syslinux syslinux-common
 
