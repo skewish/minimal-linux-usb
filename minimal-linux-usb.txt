@@ -65,7 +65,7 @@ internet connection
 
 12. install extlinux on /dev/sdb1 (in /mnt/sdb1/etc)
 
-~# extlinux -i /mnt/sdb1/etc (it appears as syslinux)
+~# extlinux -i /mnt/sdb1/etc (they appear as syslinux)
 
 13. create initramfs (from the parent kernel)
 
