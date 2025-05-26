@@ -65,7 +65,7 @@ internet connection
 
 12. install extlinux on /dev/sdb1 (in /mnt/sdb1/etc)
 
-~# extlinux -i /mnt/sdb1/etc (they appear as syslinux)
+~# extlinux -i /mnt/sdb1/etc
 
 13. create initramfs (from the parent kernel)
 
@@ -79,9 +79,9 @@ internet connection
 ~# chmod 600 /mnt/sdb1/var/swapfile
 ~# mkswap /mnt/sdb1/var/swapfile
 
-15. create syslinux.cfg (use your PARTUUID)
+15. create extlinux.cfg (use your PARTUUID)
 
-~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
+~# cat > /mnt/sdb1/etc/extlinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
