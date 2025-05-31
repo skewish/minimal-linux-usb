@@ -73,13 +73,7 @@ internet connection
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-14. create a swapfile
-
-~# fallocate -l 1G /mnt/sdb1/var/swapfile
-~# chmod 600 /mnt/sdb1/var/swapfile
-~# mkswap /mnt/sdb1/var/swapfile
-
-15. create syslinux.cfg (use your PARTUUID)
+14. create syslinux.cfg (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
 DEFAULT linux
@@ -87,6 +81,12 @@ LABEL linux
  KERNEL /vmlinuz
  APPEND initrd=/initramfs root=PARTUUID=1234abcd-01
 done
+
+15. create a swapfile
+
+~# fallocate -l 1G /mnt/sdb1/var/swapfile
+~# chmod 600 /mnt/sdb1/var/swapfile
+~# mkswap /mnt/sdb1/var/swapfile
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
 
