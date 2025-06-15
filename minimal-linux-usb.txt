@@ -63,7 +63,7 @@ internet connection
 ~# mount -t ext4 /dev/sda7 /mnt/sda7
 ~# cp -p -r /mnt/sda7/* /mnt/sdb1
 
-12. install extlinux on /dev/sdb1 (in /mnt/sdb1/etc)
+12. install extlinux on /dev/sdb1 (components in /mnt/sdb1/etc)
 
 ~# extlinux -i /mnt/sdb1/etc
 
