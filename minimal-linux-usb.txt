@@ -79,7 +79,7 @@ internet connection
 DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
- APPEND initrd=/initramfs root=PARTUUID=1234abcd-01
+ APPEND initrd=/initramfs root=PARTUUID="1234abcd-01"
 done
 
 15. create a swapfile
@@ -93,7 +93,7 @@ done
 ~# cat > /mnt/sdb1/etc/fstab << 'done'
 #proc /proc proc defaults 0 0
 #sysfs /sys sysfs defaults 0 0
-PARTUUID=1234abcd-01 / ext4 defaults 0 1
+PARTUUID="1234abcd-01" / ext4 defaults 0 1
 /var/swapfile none swap sw 0 0
 done
 
@@ -101,7 +101,7 @@ done
 
 ~# cat > /mnt/sdb1/etc/init.d/rcS << 'done'
 #!/bin/sh
-mount -o remount,rw PARTUUID=1234abcd-01 /
+mount -o remount,rw PARTUUID="1234abcd-01" /
 rm -f -r /tmp;mkdir -m 1777 /tmp
 rm /.ash_history
 mount -a
