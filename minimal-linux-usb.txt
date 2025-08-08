@@ -23,8 +23,8 @@ internet connection
 ~# lsblk (sample output information shown)
 	
 	NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-	sdb      #:##   1  8.0G  0 disk
-	└─sdb1   #:##   1  8.0G  0 part /mnt/sdb1
+	sdb      8:16   1  8.0G  0 disk
+	└─sdb1   8:17   1  8.0G  0 part /mnt/sdb1
 
 6. unmount everything on the target usb & shred it
 
