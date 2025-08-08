@@ -20,9 +20,11 @@ internet connection
 
 5. insert a usb drive & identify it (rec. be certain it's correct)
 
-~# lsblk 
-	(ex. sdb
-	     |__sdb1)
+~# lsblk (sample output information shown)
+	
+	NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+	sdb      #:##   1  8.0G  0 disk
+	└─sdb1   #:##   1  8.0G  0 part /mnt/sdb1
 
 6. unmount everything on the target usb & shred it
 
@@ -53,7 +55,7 @@ internet connection
 
 10. identify the PARTUUID of the new partition (the UUID can also be used)
 
-~# blkid (sample output information shown)
+~# blkid /dev/sdb1 (sample output information shown)
 
 	/dev/sdb1: UUID="########-####-####-####-############" 
 	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-01"
