@@ -39,7 +39,7 @@ internet connection
  	Partition type (default p): p
  	Partition number (default 1): 1
  	First sector (default 2048): Enter
- 	Last sector (default 16779216): Enter
+ 	Last sector (default 15269887): Enter
  	Command (m for help): a
  	Command (m for help): w
 
