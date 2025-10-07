@@ -106,7 +106,7 @@ done
 #!/bin/sh
 dmesg -n 1
 mount -o remount,rw PARTUUID="1234abcd-01" /
-#rm -f -r /tmp;mkdir -m 1777 /tmp
+rm -f -r /tmp;mkdir -m 1777 /tmp
 rm /.ash_history
 mount -a
 swapon -a
