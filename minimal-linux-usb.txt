@@ -23,8 +23,8 @@ minimal-linux-usb (see also minimal-linux-notes)
 ~# lsblk (sample output information shown)
 	
 	NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-	sdb       8:16   1  8.0G  0 disk
-	|__sdb1   8:17   1  8.0G  0 part /mnt/sdb1
+	sdb       8:16   1  7.3G  0 disk
+	 \sdb1    8:17   1  7.3G  0 part /mnt/sdb1
 
 6. unmount everything on the target usb & shred it
 
@@ -36,8 +36,8 @@ minimal-linux-usb (see also minimal-linux-notes)
 ~# fdisk /dev/sdb (rec. use mostly the default selections)
  
  	Command (m for help): n
- 	Partition type (default p): p
- 	Partition number (default 1): 1
+ 	Partition type (default p): Enter
+ 	Partition number (default 1): Enter
  	First sector (default 2048): Enter
  	Last sector (default 15269887): Enter
  	Command (m for help): a
@@ -53,17 +53,16 @@ minimal-linux-usb (see also minimal-linux-notes)
 ~# mkfs.ext4 /dev/sdb1
 ~# mount -t ext4 /dev/sdb1 /mnt/sdb1
 
-10. identify the PARTUUID of the new partition (or the UUID can be used)
-
-~# blkid /dev/sdb1 (sample output information shown)
-
-	/dev/sdb1: UUID="########-####-####-####-############" 
-	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-01"
-
-11. copy all of mimimal-linux-new from /mnt/sda7 to /mnt/sdb1
+10. copy all of mimimal-linux-new from /mnt/sda7 to /mnt/sdb1
 
 ~# mount -t ext4 /dev/sda7 /mnt/sda7
 ~# cp -p -r /mnt/sda7/* /mnt/sdb1
+
+11. create a swapfile
+
+~# fallocate -l 2G /mnt/sdb1/var/swapfile
+~# chmod 0600 /mnt/sdb1/var/swapfile
+~# mkswap /mnt/sdb1/var/swapfile
 
 12. install extlinux on /dev/sdb1 (components in /mnt/sdb1/etc)
 
@@ -75,11 +74,12 @@ minimal-linux-usb (see also minimal-linux-notes)
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-14. create a swapfile
+14. identify the PARTUUID of the new partition (or the UUID can be used)
 
-~# fallocate -l 2G /mnt/sdb1/var/swapfile
-~# chmod 0600 /mnt/sdb1/var/swapfile
-~# mkswap /mnt/sdb1/var/swapfile
+~# blkid /dev/sdb1 (sample output information shown)
+
+	/dev/sdb1: UUID="########-####-####-####-############" 
+	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-01"
 
 15. create syslinux.cfg (use your PARTUUID)
 
@@ -88,7 +88,7 @@ DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
  INITRD /initramfs
- APPEND root=PARTUUID="1234abcd-01"
+ APPEND root=PARTUUID="1234abcd-01" quiet
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
@@ -101,16 +101,4 @@ PARTUUID="1234abcd-01" / ext4 defaults 0 1
 /var/swapfile none swap sw 0 0
 done
 
-17. modify /mnt/sdb1/etc/init.d/rcS (use your PARTUUID)
-
-~# cat > /mnt/sdb1/etc/init.d/rcS << 'done'
-#!/bin/sh
-dmesg -n 1
-mount -a
-mount -o remount,rw PARTUUID="1234abcd-01" /
-#rm -f -r /tmp;mkdir -m 1777 /tmp
-rm /.ash_history
-swapon -a
-done
-
-18. reboot with the usb drive inserted (it should start)
+17. reboot with the usb drive inserted (be patient, it should start)
