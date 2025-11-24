@@ -88,7 +88,7 @@ DEFAULT linux
 LABEL linux
  KERNEL /vmlinuz
  INITRD /initramfs
- APPEND root=PARTUUID="1234abcd-01" quiet
+ APPEND root=PARTUUID="1234abcd-01" /sbin/init quiet
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
