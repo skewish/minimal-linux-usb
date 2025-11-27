@@ -86,9 +86,9 @@ minimal-linux-usb (see also minimal-linux-notes)
 ~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
- KERNEL /vmlinuz
- INITRD /initramfs
- APPEND root=PARTUUID="1234abcd-01" /sbin/init quiet
+KERNEL /vmlinuz
+INITRD /initramfs
+APPEND root=PARTUUID="1234abcd-01" /sbin/init quiet
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
