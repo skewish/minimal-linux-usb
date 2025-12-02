@@ -88,7 +88,7 @@ DEFAULT linux
 LABEL linux
 KERNEL /vmlinuz
 INITRD /initramfs
-APPEND root=PARTUUID="1234abcd-01" quiet
+APPEND root=PARTUUID="1234abcd-01"
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
@@ -101,4 +101,4 @@ PARTUUID="1234abcd-01" / ext4 defaults 0 1
 /var/swapfile none swap sw 0 0
 done
 
-17. reboot with the usb drive inserted (be patient, it should start)
+17. reboot with the usb drive inserted (it should start)
