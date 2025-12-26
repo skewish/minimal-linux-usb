@@ -58,7 +58,7 @@ minimal-linux-usb
 ~# mount -t ext4 /dev/sda8 /mnt/sda8
 ~# cp -p -r /mnt/sda8/* /mnt/sdb1
 
-11. create a swapfile
+11. create a swapfile on /mnt/sdb1/var
 
 ~# fallocate -l 2G /mnt/sdb1/var/swapfile
 ~# chmod 0600 /mnt/sdb1/var/swapfile
