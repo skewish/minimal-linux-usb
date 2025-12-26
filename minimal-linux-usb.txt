@@ -1,0 +1,105 @@
+minimal-linux-usb
+
+1. my parent system pre-build setup (fyi)
+
+-64-bit debian linux on /dev/sda1 (newest release)
+-a usb drive (ex. an 8G thumb drive for /dev/sdb)
+-bios boot order: usb then hard drive
+-previously built minimal-linux-new on /dev/sda8
+-internet connection
+
+2. start the parent system without the usb drive inserted
+
+3. within the parent system (debian) open a terminal & become superuser
+
+~# su -
+
+4. install extlinux on the parent system (if not already present)
+
+~# apt install extlinux mtools syslinux syslinux-common
+
+5. insert a usb drive & identify it (rec. be certain it's correct)
+
+~# lsblk (sample output information shown)
+	
+	NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+	sdb       8:16   1  7.3G  0 disk
+	 \sdb1    8:17   1  7.3G  0 part /mnt/sdb1
+
+6. unmount everything on the target usb & shred it
+
+~# umount /dev/sdb1
+~# shred -v -n 1 /dev/sdb
+
+7. create a new, single partition on /dev/sdb using fdisk
+
+~# fdisk /dev/sdb (rec. use mostly the default selections)
+ 
+ 	Command (m for help): n
+ 	Partition type (default p): Enter
+ 	Partition number (default 1): Enter
+ 	First sector (default 2048): Enter
+ 	Last sector (default 15269887): Enter
+ 	Command (m for help): a
+ 	Command (m for help): w
+
+8. add mbr.bin from extlinux to /dev/sdb
+
+~# cat /usr/lib/EXTLINUX/mbr.bin > /dev/sdb
+
+9. create & mount a filesystem on the build partition (/dev/sdb1)
+
+~# mkdir /mnt/sdb1
+~# mkfs.ext4 /dev/sdb1
+~# mount -t ext4 /dev/sdb1 /mnt/sdb1
+
+10. copy all of mimimal-linux-new from /mnt/sda8 to /mnt/sdb1
+
+~# mount -t ext4 /dev/sda8 /mnt/sda8
+~# cp -p -r /mnt/sda8/* /mnt/sdb1
+
+11. create a swapfile
+
+~# fallocate -l 2G /mnt/sdb1/var/swapfile
+~# chmod 0600 /mnt/sdb1/var/swapfile
+~# mkswap /mnt/sdb1/var/swapfile
+
+12. install extlinux on /dev/sdb1 (components in /mnt/sdb1/etc)
+
+~# extlinux -i /mnt/sdb1/etc
+
+13. create initramfs (from the parent kernel)
+
+~# cd /mnt/sdb1
+~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
+~# ln -f -s boot/initramfs* initramfs
+
+14. identify the PARTUUID of the new partition (the UUID can also be used)
+
+~# blkid /dev/sdb1 (sample output information shown)
+
+	/dev/sdb1: UUID="########-####-####-####-############" 
+	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-01"
+
+15. create syslinux.cfg (use your PARTUUID)
+
+~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
+DEFAULT linux
+LABEL linux
+KERNEL /vmlinuz plymouth.enable=0
+INITRD /initramfs
+APPEND /sbin/init root=PARTUUID="1234abcd-01"
+done
+
+16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
+
+~# cat > /mnt/sdb1/etc/fstab << 'done'
+#proc /proc proc defaults 0 0
+#sysfs /sys sysfs defaults 0 0
+#tmpfs /run tmpfs defaults 0 0
+PARTUUID="1234abcd-01" / ext4 defaults 0 1
+/var/swapfile none swap sw 0 0
+done
+
+17. reboot with the usb drive inserted (it should start)
+
