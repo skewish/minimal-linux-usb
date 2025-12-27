@@ -47,13 +47,13 @@ minimal-linux-usb
 
 ~# cat /usr/lib/EXTLINUX/mbr.bin > /dev/sdb
 
-9. create & mount a filesystem on the build partition (/dev/sdb1)
+9. create & mount a filesystem on the new partition (/dev/sdb1)
 
 ~# mkdir /mnt/sdb1
 ~# mkfs.ext4 /dev/sdb1
 ~# mount -t ext4 /dev/sdb1 /mnt/sdb1
 
-10. copy all of mimimal-linux-new from /mnt/sda8 to /mnt/sdb1
+10. copy all of mimimal-linux-new from /mnt/sda8 to /mnt/sdb1 (no archives)
 
 ~# mount -t ext4 /dev/sda8 /mnt/sda8
 ~# cp -p -r /mnt/sda8/* /mnt/sdb1
