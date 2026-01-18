@@ -88,7 +88,7 @@ DEFAULT linux
 LABEL linux
 KERNEL /vmlinuz plymouth.enable=0
 INITRD /initramfs
-APPEND /sbin/init root=PARTUUID="1234abcd-01"
+APPEND root=PARTUUID="1234abcd-01"
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
