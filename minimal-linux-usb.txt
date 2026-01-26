@@ -102,4 +102,3 @@ PARTUUID="1234abcd-01" / ext4 defaults 0 1
 done
 
 17. reboot with the usb drive inserted (it should start)
-
