@@ -14,7 +14,7 @@ minimal-linux-usb
 
 ~# su -
 
-4. install extlinux tools on the parent system (if not already present)
+4. install extlinux packages on the parent system (if not already present)
 
 ~# apt install extlinux mtools syslinux syslinux-common
 
