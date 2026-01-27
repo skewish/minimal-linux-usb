@@ -14,7 +14,7 @@ minimal-linux-usb
 
 ~# su -
 
-4. install extlinux on the parent system (if not already present)
+4. install extlinux tools on the parent system (if not already present)
 
 ~# apt install extlinux mtools syslinux syslinux-common
 
@@ -64,7 +64,7 @@ minimal-linux-usb
 ~# chmod 0600 /mnt/sdb1/var/swapfile
 ~# mkswap /mnt/sdb1/var/swapfile
 
-12. install extlinux on /dev/sdb1 (components in /mnt/sdb1/etc)
+12. install extlinux components on /dev/sdb1 (in /mnt/sdb1/etc)
 
 ~# extlinux -i /mnt/sdb1/etc
 
