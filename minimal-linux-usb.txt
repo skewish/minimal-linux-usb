@@ -86,7 +86,7 @@ minimal-linux-usb
 ~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
 DEFAULT linux
 LABEL linux
-KERNEL /vmlinuz plymouth.enable=0
+KERNEL /vmlinuz rd.plymouth=0 plymouth.enable=0
 INITRD /initramfs
 APPEND root=PARTUUID="1234abcd-01"
 done
