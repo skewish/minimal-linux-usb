@@ -58,17 +58,17 @@ minimal-linux-usb
 ~# mount -t ext4 /dev/sda8 /mnt/sda8
 ~# cp -p -r /mnt/sda8/* /mnt/sdb1
 
-11. create /mnt/sdb1/boot/initramfs (from the parent kernel)
-
-~# cd /mnt/sdb1
-~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
-~# ln -f -s boot/initramfs* initramfs
-
-12. create a swapfile on /mnt/sdb1/var
+11. create a swapfile on /mnt/sdb1/var
 
 ~# fallocate -l 2G /mnt/sdb1/var/swapfile
 ~# chmod 0600 /mnt/sdb1/var/swapfile
 ~# mkswap /mnt/sdb1/var/swapfile
+
+12. create /mnt/sdb1/boot/initramfs (from the parent kernel)
+
+~# cd /mnt/sdb1
+~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
+~# ln -f -s boot/initramfs* initramfs
 
 13. install extlinux components on /mnt/sdb1/etc
 
