@@ -70,7 +70,7 @@ minimal-linux-usb
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-13. install extlinux components on /mnt/sdb1/etc
+13. install extlinux system components on /mnt/sdb1/etc
 
 ~# extlinux -i /mnt/sdb1/etc
 
