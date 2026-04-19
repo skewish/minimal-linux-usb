@@ -84,7 +84,7 @@ minimal-linux-usb
 15. create /mnt/sdb1/etc/syslinux.cfg (use your PARTUUID)
 
 ~# cat > /mnt/sdb1/etc/syslinux.cfg << 'done'
-DEFAULT linux
+DEFAULT linux noresume
 LABEL linux
 KERNEL /vmlinuz rd.plymouth=0 plymouth.enable=0
 INITRD /initramfs
