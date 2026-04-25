@@ -70,7 +70,7 @@ minimal-linux-usb
 ~# mkinitramfs -o /mnt/sdb1/boot/initramfs-$(uname)
 ~# ln -f -s boot/initramfs* initramfs
 
-13. install extlinux system components in /mnt/sdb1/etc
+13. install extlinux bootloader components in /mnt/sdb1/etc
 
 ~# extlinux -i /mnt/sdb1/etc
 
@@ -88,7 +88,7 @@ DEFAULT linux noresume
 LABEL linux
 KERNEL /vmlinuz rd.plymouth=0 plymouth.enable=0
 INITRD /initramfs
-APPEND root=PARTUUID="1234abcd-01"
+APPEND /sbin/init root=PARTUUID="1234abcd-01"
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
@@ -102,3 +102,4 @@ PARTUUID="1234abcd-01" / ext4 defaults 0 1
 done
 
 17. reboot with the usb drive inserted (it should start)
+
