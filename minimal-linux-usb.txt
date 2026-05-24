@@ -60,7 +60,7 @@ minimal-linux-usb
 
 11. create a swapfile in /mnt/sdb1/var
 
-~# fallocate -l 2G /mnt/sdb1/var/swapfile
+~# fallocate -l 1G /mnt/sdb1/var/swapfile
 ~# chmod 0600 /mnt/sdb1/var/swapfile
 ~# mkswap /mnt/sdb1/var/swapfile
 
