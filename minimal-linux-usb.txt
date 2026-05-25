@@ -74,7 +74,7 @@ minimal-linux-usb
 
 ~# extlinux -i /mnt/sdb1/etc
 
-14. identify the PARTUUID of the new partition (the UUID can also be used)
+14. identify the PARTUUID of the new partition (or the UUID can be used)
 
 ~# blkid /dev/sdb1 (sample output information shown)
 
