@@ -21,7 +21,7 @@ minimal-linux-usb
 5. insert a usb drive & identify it (rec. be certain it's correct)
 
 ~# lsblk (sample output information shown)
-	
+
 	NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
 	sdb       8:16   1  7.3G  0 disk
 	 \sdb1    8:17   1  7.3G  0 part /mnt/sdb1
@@ -34,14 +34,14 @@ minimal-linux-usb
 7. create a new, single partition on /dev/sdb using fdisk
 
 ~# fdisk /dev/sdb (rec. use mostly the default selections)
- 
- 	Command (m for help): n
- 	Partition type (default p): Enter
- 	Partition number (default 1): Enter
- 	First sector (default 2048): Enter
- 	Last sector (default 15269887): Enter
- 	Command (m for help): a
- 	Command (m for help): w
+
+	Command (m for help): n
+	Partition type (default p): Enter
+	Partition number (default 1): Enter
+	First sector (default 2048): Enter
+	Last sector (default 15269887): Enter
+	Command (m for help): a
+	Command (m for help): w
 
 8. add mbr.bin from extlinux to /dev/sdb
 
@@ -78,7 +78,7 @@ minimal-linux-usb
 
 ~# blkid /dev/sdb1 (sample output information shown)
 
-	/dev/sdb1: UUID="########-####-####-####-############" 
+	/dev/sdb1: UUID="########-####-####-####-############"
 	BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="1234abcd-01"
 
 15. create /mnt/sdb1/etc/syslinux.cfg (use your PARTUUID)
