@@ -58,10 +58,9 @@ minimal-linux-usb
 ~# mkfs.ext4 /dev/sdb1
 ~# mount -t ext4 /dev/sdb1 /mnt/sdb1
 
-10. copy everything from /mnt/sda8 to /mnt/sdb1
+10. copy everything from /mnt/sda8 to /mnt/sdb1 (remove build archives 1st)
 
 ~# mount -t ext4 /dev/sda8 /mnt/sda8
-(remove minimal-linux-new build archives from /mnt/sda8/tmp)
 ~# cp -p -r /mnt/sda8/* /mnt/sdb1
 
 11. create a swapfile in /mnt/sdb1/var
