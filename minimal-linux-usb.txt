@@ -93,7 +93,7 @@ DEFAULT linux noresume
 LABEL linux
 KERNEL /vmlinuz rd.plymouth=0 plymouth.enable=0
 INITRD /initramfs
-APPEND root=PARTUUID="1234abcd-01"
+APPEND root=PARTUUID="1234abcd-01" net.ifnames=0
 done
 
 16. modify /mnt/sdb1/etc/fstab (use your PARTUUID)
