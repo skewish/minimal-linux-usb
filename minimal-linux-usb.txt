@@ -41,10 +41,10 @@ minimal-linux-usb
 ~# fdisk /dev/sdb (rec. use mostly the default selections)
 
 	Command (m for help): n
-	Partition type (default p): Enter
-	Partition number (default 1): Enter
-	First sector (default 2048): Enter
-	Last sector (default 15269887): Enter
+	Partition type (default p): <Enter>
+	Partition number (default 1): <Enter>
+	First sector (default 2048): <Enter>
+	Last sector (default 15269887): <Enter>
 	Command (m for help): a
 	Command (m for help): w
 
