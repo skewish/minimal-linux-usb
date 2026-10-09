@@ -108,6 +108,6 @@ done
 
 17. update file permissions
 
-~# chmod -v -R g-w /mnt/sdb1/*
+~# chmod -v -R g-w,o-w /mnt/sdb1/*
 
 18. reboot with the usb drive inserted (it should start)
