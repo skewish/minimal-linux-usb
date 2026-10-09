@@ -106,4 +106,8 @@ PARTUUID="1234abcd-01" / ext4 defaults 0 1
 /var/swapfile none swap sw 0 0
 done
 
-17. reboot with the usb drive inserted (it should start)
+17. update file permissions
+
+~# chmod -v -R g-w /mnt/sdb1/*
+
+18. reboot with the usb drive inserted (it should start)
